@@ -27,36 +27,16 @@
 #ifndef DEF_PLAYER
 #define DEF_PLAYER
 
-/*	Structure pour les données du joueur
- * 	Bool pour le bloquage/debloquage du niveau
- * 	Le score du joueur
- *  Le bonus temps restant
- */ 
-typedef struct Player_Score Player_Score;
-struct Player_Score
-{
-	int levelok;
-	int score;
-	int bonus;
-};
-//Gestion de l'affichage du tableau de score du joueur
-void Player_Score_Menu(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal);
-
-//Gestion de l'affichage de la liste des niveaux
-void Player_Level_Select(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal);
-
-//Sélection du niveau par le joueur
-int Player_Level_Selection(SDL_Surface *background, int y_mouse);
-
-//Gestion de l'affichage du score du joueur à la fin du niveau
-void Player_Score_Level(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal, int num_level, int menu_select);
-
-//Formatage de l'affichage des scores
-void Player_Score_Format(Game_Surface *surface, int nbr_point, TTF_Font *font_normal, SDL_Rect position);
-
 //Chargement du fichier de score du joueur
 int Player_Score_Load(Player_Score *score);
-
+//Gestion de l'affichage de la liste des niveaux
+void Player_Level_Select(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal);
+//Formatage de l'affichage des scores
+void Player_Score_Format(Game_Surface *surface, int nbr_point, TTF_Font *font_normal, SDL_Rect position);
+//Gestion de l'affichage du tableau de score du joueur
+void Player_Score_Menu(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal);
+//Gestion de l'affichage du score du joueur à la fin du niveau
+void Player_Score_Level(Game_Surface *surface, Player_Score *score, TTF_Font *font_normal, int num_level, int menu_select);
 //Sauvegarde des scores du joueur et des niveaux débloqués
 int Player_Score_Save(Player_Score *score);
 

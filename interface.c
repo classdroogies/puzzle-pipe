@@ -21,23 +21,26 @@
  * 
  */
 
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
-#include "config.h"
 #include "interface.h"
-#include "player.h"
-#include "menu.h"
-#include "game.h"
 
-int Game_Init()
+void Game_Init_Surface(Game_Surface *surface)
 {
-	//Initialistaion de la SDL
+	int i = 0;
+	surface->background = NULL;
+	for (i = 0; i < NOMBRE_IMAGE; i++)
+	{
+		surface->image[i] = NULL;
+	}
+	surface->src_water = NULL;
+	surface->dst_water = NULL;	
+	surface->texte_chrono = NULL;
+	surface->texte_level = NULL;
+	surface->texte_score = NULL;	
+}
+
+int Game_Init(void)
+{
+	//Initialistation de la SDL
 	if (SDL_Init(SDL_INIT_VIDEO|SDL_INIT_AUDIO|SDL_INIT_TIMER))
 	{
 		fprintf(stderr,"! ERREUR : L'initialisation de la SDL à échoué : %s'\n", SDL_GetError());
@@ -54,32 +57,14 @@ int Game_Init()
 	{
 		fprintf(stderr,"! ERREUR : L'initialisation du module SDL_MIXER à échoué : %s'\n", Mix_GetError());
 		return 1;
-	}
-	
-	
+	}	
 	return 0;
-
-}
-
-void Game_Init_Surface(Game_Surface *surface)
-{
-	int i=0;
-	surface->background=NULL;
-	for (i = 0; i < NOMBRE_IMAGE; i++)
-	{
-		surface->image[i]=NULL;
-	}
-	surface->src_water=NULL;
-	surface->dst_water=NULL;	
-	surface->texte_chrono=NULL;
-	surface->texte_level=NULL;
-	surface->texte_score=NULL;	
 }
 
 int Game_Img_Load(SDL_Surface *image[])
 {
-	char urlimg[11]={'\0'};
-	int i=0;
+	char urlimg[11] = {'\0'};
+	int i = 0;
 	
 	for (i = 0; i < NOMBRE_IMAGE; i++)
 	{
@@ -93,21 +78,19 @@ int Game_Img_Load(SDL_Surface *image[])
 			return  1;
 		}
 	
-	}
-			
-	return 0;
-	
+	}			
+	return 0;	
 }
 
 int Game_Snd_Load(Mix_Chunk *sound[])
 {
-	int i=0;
-	char urlsnd[10]={'\0'};
+	int i = 0;
+	char urlsnd[10] = {'\0'};
 	
 	for (i = 0; i < NOMBRE_SON; i++)
 	{
 		sprintf(urlsnd,"snd/%d.wav",i);
-		sound[i]=Mix_LoadWAV(urlsnd);
+		sound[i] = Mix_LoadWAV(urlsnd);
 		
 		if (!sound[i])
 		{
@@ -120,24 +103,19 @@ int Game_Snd_Load(Mix_Chunk *sound[])
 
 int Game_Menu_Bouton (int mouseposx, int mouseposy, int surfposx, int surfposy, int surfsizex, int surfsizey)
 {
-		//Si la souris est dans la zone prédéfinie
-		if ((mouseposx >= surfposx) && (mouseposy >= surfposy) && (mouseposx <= (surfposx + surfsizex)) && (mouseposy <= (surfposy + surfsizey)))
-		{
-			
-			return 1;
-		}
-		else
-		{
-			return 0;
-		}
-		
+	//Si la souris est dans la zone prédéfinie
+	if ((mouseposx >= surfposx) && (mouseposy >= surfposy) && (mouseposx <= (surfposx + surfsizex)) && (mouseposy <= (surfposy + surfsizey)))
+	{		
+		return 1;
+	}		
+	return 0;		
 }
 
 Uint32 Game_Time_Event (Uint32 interval, void *param)
 {
 	SDL_Event myevent;
 
-	myevent.type=SDL_USEREVENT;
+	myevent.type = SDL_USEREVENT;
 	myevent.user.code = 2;
 	myevent.user.data1 = NULL;
 	myevent.user.data2 = NULL;
@@ -148,8 +126,7 @@ Uint32 Game_Time_Event (Uint32 interval, void *param)
  
 void Game_Quit(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TTF_Font *font_normal, SDL_TimerID timer_id)
 {
-	int i=0;
-	
+	int i = 0;	
 	for (i = 0; i < NOMBRE_IMAGE; i++)
 	{
 		SDL_FreeSurface(surface->image[i]);
@@ -157,8 +134,7 @@ void Game_Quit(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TT
 	for (i = 0; i < NOMBRE_SON; i++)
 	{
 		Mix_FreeChunk(sound[i]);
-	}
-	
+	}	
 	SDL_FreeSurface(surface->texte_chrono);
 	SDL_FreeSurface(surface->texte_level);
 	SDL_FreeSurface(surface->texte_score);

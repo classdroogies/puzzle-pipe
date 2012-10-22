@@ -18,39 +18,20 @@
  * Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston,
  * MA 02110-1301, USA.
  * 
- * Compilation : gcc -Wall -o puzzlepipe puzzlepipe.o menu.o interface.o game.o player.o `sdl-config --cflags --libs ` -lSDL_image -lSDL_ttf -lSDL_mixer
+ * Compilation : gcc -Wall -Wextra -ansi -O -Wwrite-strings -Wstrict-prototypes -Wuninitialized -Wunreachable-code -o puzzlepipe puzzlepipe.o interface.o menu.o game.o player.o `sdl-config --cflags --libs ` -lSDL_image -lSDL_ttf -lSDL_mixer
  * 
  */
-
-
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <SDL/SDL.h>
-#include <SDL/SDL_image.h>
-#include <SDL/SDL_ttf.h>
-#include <SDL/SDL_mixer.h>
-#include "config.h"
 #include "interface.h"
-#include "player.h"
 #include "menu.h"
-#include "game.h"
-
-
 
 int main(int argc, char **argv)
 {	
 	Game_Surface surface;
-	
-	//Initiallisation de la structure des surfaces du jeu
+	//Initialisation de la structure des surfaces du jeu
 	Game_Init_Surface(&surface);
-			
 	TTF_Font *font_big = NULL, *font_normal = NULL;
-	
-	Mix_Chunk *sound[NOMBRE_SON]= {NULL};
-		
-	SDL_TimerID timer_id = NULL;	
-			
+	Mix_Chunk *sound[NOMBRE_SON] = {NULL};
+	SDL_TimerID timer_id = NULL;			
 	//Initialisation du jeu : SDL, Image, TTF, Sound.
 	if (Game_Init())
 	{
@@ -67,19 +48,18 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	//Nom de la fenêtre -> define	
-	SDL_WM_SetCaption(GAME_VERSION,NULL);
+	SDL_WM_SetCaption(GAME_VERSION, NULL);
 	//Icone de la fenêtre et de la barre des taches -> define
-	SDL_WM_SetIcon(surface.image[ROBINET_OUVERT],NULL);
+	SDL_WM_SetIcon(surface.image[ROBINET_OUVERT], NULL);
 	//Création de la fenêtre		
-	surface.background=SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
+	surface.background = SDL_SetVideoMode(WIDTH, HEIGHT, 32, SDL_HWSURFACE|SDL_DOUBLEBUF);
 	//Chargement des fonts du jeu -> define
-	font_big=TTF_OpenFont(FONT, FONT_SIZE_BIG);
-	
-	font_normal=TTF_OpenFont(FONT, FONT_SIZE_NORMAL);
+	font_big = TTF_OpenFont(FONT, FONT_SIZE_BIG);	
+	font_normal = TTF_OpenFont(FONT, FONT_SIZE_NORMAL);
 	//Vérification de l'ouverture de la fênetre
 	if (surface.background == NULL)
 	{
-		fprintf(stderr,"! ERREUR : L'ouverture de la fenêtre à échoué : %s'\n", SDL_GetError());
+		fprintf(stderr, "! ERREUR : L'ouverture de la fenêtre à échoué : %s'\n", SDL_GetError());
 		return  EXIT_FAILURE;
 	}
 	//Lancement de la boucle principale du jeu									
@@ -88,8 +68,7 @@ int main(int argc, char **argv)
 		return EXIT_FAILURE;
 	}
 	//Libération de la mémoire avant de quitter		
-	Game_Quit(&surface, sound, font_big, font_normal, timer_id);
-	
+	Game_Quit(&surface, sound, font_big, font_normal, timer_id);	
 	return EXIT_SUCCESS;
 }
 
