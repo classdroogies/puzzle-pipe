@@ -428,7 +428,7 @@ int Game_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TTF
 				SDL_RemoveTimer(*timer_id);
 				//On arrête les sons en cours de lecture
 				Mix_HaltChannel(0);
-			break;
+				break;
 			case SDL_KEYDOWN:
 				if (event.key.keysym.sym == SDLK_ESCAPE)
 				{
@@ -439,7 +439,7 @@ int Game_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TTF
 					//On arrête les sons en cours de lecture
 					Mix_HaltChannel(0);
 				}			
-			break;
+				break;
 			case SDL_MOUSEBUTTONDOWN:
 				if (event.button.button == SDL_BUTTON_LEFT)
 				{
@@ -467,7 +467,7 @@ int Game_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TTF
 						}						
 					}					
 				}				
-			break;
+				break;
 			//Evenenemet déclenché par le SDL timer
 			case  SDL_USEREVENT:
 				//Si le chrono n'est pas terminé et que le joueur n'a pas gagné
@@ -528,7 +528,7 @@ int Game_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big, TTF
 						menu_select = MENU_WIN;
 					}					
 				}												
-			break;
+				break;
 		}
 		//On met à jour l'affichage
 		SDL_Flip(surface->background);		

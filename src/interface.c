@@ -76,8 +76,7 @@ int Game_Img_Load(SDL_Surface *image[])
 		{
 			fprintf(stderr,"ERREUR : L'ouverture de l'image \"%s\" à échoué : %s'\n", urlimg, SDL_GetError());
 			return  1;
-		}
-	
+		}	
 	}			
 	return 0;	
 }

@@ -86,8 +86,7 @@ void Player_Level_Select(Game_Surface *surface, Player_Score *score, TTF_Font *f
 		SDL_BlitSurface(surface->texte_score, NULL, surface->background, &position);	
 		//On passe à la ligne suivante
 		position.y += 36;
-	}
-	
+	}	
 }
 
 void Player_Score_Format(Game_Surface *surface, int nbr_point, TTF_Font *font_normal, SDL_Rect position)
@@ -204,8 +203,7 @@ int Player_Score_Save(Player_Score *score)
 	 * 	Statut du niveau : Statut-Score-Bonus
 	 * 	Pour la sauvegarde des données
 	 */	
-	file_score = fopen("player.score","w");
-	
+	file_score = fopen("player.score","w");	
 	if (!file_score)
 	{
 		fprintf(stderr,"ERREUR : L'ouverture du fichier player à échoué.\n");		

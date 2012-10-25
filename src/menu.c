@@ -137,10 +137,8 @@ int Game_Menu_Selection(SDL_Surface *background, SDL_Rect *arrow_position, int x
 							return MENU_NEXT;
 						}
 						break;				
-				}
-				
-			}	
-			 
+				}				
+			}				 
 		}
 	}
 	else
@@ -176,8 +174,7 @@ int Game_Menu_Selection(SDL_Surface *background, SDL_Rect *arrow_position, int x
 				return MENU_GAME;
 			}					
 		}		
-	}
-	
+	}	
 	//Si l'utilisateur clique n'importe ou on renvoie le menu actuellement affiché	
 	if (mouse_clic)
 	{
@@ -289,8 +286,7 @@ void Game_Menu_Clean_Zone(SDL_Surface *background, int menu_select, int y_mouse)
 			size_arrow_clear = 360;
 			position.x = 205;
 			position.y = 175;
-		}
-				
+		}				
 	}		
 	//Affichage de la zone d'éffacement						
 	arrow_clear = SDL_CreateRGBSurface(SDL_HWSURFACE,50,size_arrow_clear, 32, 0, 0, 0, 0);								
@@ -334,12 +330,12 @@ int Game_Menu_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big
 				continuer = 0;
 			break;
 			case SDL_KEYDOWN:
-					//Si on presse la touche ECHAP, et que l'on est pas sur le menu principale on affiche ce dernier
-					if ((event.key.keysym.sym == SDLK_ESCAPE) && menu_select != MENU_MAIN)
-					{
-						menu_select = MENU_MAIN;
-						Game_Menu_Display(surface, score, font_normal, num_level, MENU_MAIN);
-					}					
+				//Si on presse la touche ECHAP, et que l'on est pas sur le menu principale on affiche ce dernier
+				if ((event.key.keysym.sym == SDLK_ESCAPE) && menu_select != MENU_MAIN)
+				{
+					menu_select = MENU_MAIN;
+					Game_Menu_Display(surface, score, font_normal, num_level, MENU_MAIN);
+				}					
 				break;
 			case SDL_MOUSEMOTION:	
 				//Fonction permettant de positionner la flèche de sélection du menu selon l'emplacement de la souris
@@ -356,17 +352,17 @@ int Game_Menu_Loop(Game_Surface *surface, Mix_Chunk *sound[], TTF_Font *font_big
 					switch (menu_select)
 					{
 						case MENU_NEXT:
-								//On passe au niveau suivant, sauf si l'utilisateur à terminé le jeu
-								if (num_level < NOMBRE_NIVEAU - 1)
-								{
-									++num_level;
-								}
-								else
-								{									
-									menu_select = MENU_FINISH;
-									num_level = 0;
-									break;
-								}															
+							//On passe au niveau suivant, sauf si l'utilisateur à terminé le jeu
+							if (num_level < NOMBRE_NIVEAU - 1)
+							{
+								++num_level;
+							}
+							else
+							{									
+								menu_select = MENU_FINISH;
+								num_level = 0;
+								break;
+							}															
 						case MENU_GAME:
 							//On lance une partie si le niveau choisis est débloqué
 							if (score[num_level].levelok)

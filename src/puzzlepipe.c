@@ -56,7 +56,7 @@ int main(int argc, char **argv)
 	//Chargement des fonts du jeu -> define
 	font_big = TTF_OpenFont(FONT, FONT_SIZE_BIG);	
 	font_normal = TTF_OpenFont(FONT, FONT_SIZE_NORMAL);
-	//Vérification de l'ouverture de la fênetre
+	//Vérification de l'ouverture de la fenêtre
 	if (surface.background == NULL)
 	{
 		fprintf(stderr, "! ERREUR : L'ouverture de la fenêtre à échoué : %s'\n", SDL_GetError());
